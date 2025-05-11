@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(20);
+    opacity: 0;
+  }
+}
+
+.animate-zoomOut {
+  animation: zoomOut 3s ease-in-out forwards;
+}
