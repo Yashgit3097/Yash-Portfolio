@@ -4,6 +4,28 @@ import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
 const Contact = () => {
+    // ✅ WhatsApp redirect handler
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent form reload
+
+        // ✅ Get form values
+        const email = e.target.email.value;
+        const name = e.target.name.value;
+        const message = e.target.message.value;
+
+        // ✅ Customize this with your WhatsApp number in international format (without +)
+        const phoneNumber = "917203977628";
+
+        // ✅ Construct message for WhatsApp
+        const fullMessage = `Hello, I'm ${name} (${email}).\n\nMessage: ${message}`;
+
+        // ✅ Create WhatsApp URL
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(fullMessage)}`;
+
+        // ✅ Open WhatsApp in new tab
+        window.open(whatsappURL, "_blank");
+    };
+
     return (
         <motion.div
             id="contact"
@@ -37,35 +59,41 @@ const Contact = () => {
 
             {/* Contact Form */}
             <motion.form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7 }}
                 className="w-full max-w-2xl bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg border border-white/10 space-y-5"
             >
                 <div className="flex flex-col sm:flex-row gap-4">
+                    {/* ✅ Added name attributes to access input values */}
                     <input
+                        name="email"
                         type="email"
                         placeholder="Email"
                         className="flex-1 bg-transparent border border-zinc-700 rounded-full px-4 py-3 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                     />
                     <input
+                        name="name"
                         type="text"
                         placeholder="Name"
                         className="flex-1 bg-transparent border border-zinc-700 rounded-full px-4 py-3 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                     />
                 </div>
+
                 <textarea
+                    name="message"
                     rows="5"
                     placeholder="Your message..."
                     className="w-full bg-transparent border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 ></textarea>
+
                 <button
                     type="submit"
-                    className="w-full py-3 rounded-full bg-blue-600 hover:bg-blue-500 font-semibold uppercase tracking-wider transition shadow-md"
+                    className="w-full py-3 rounded-full bg-blue-600 hover:bg-blue-500 font-semibold uppercase tracking-wider transition shadow-md cursor-pointer"
                 >
                     Send Message
                 </button>
